@@ -1,0 +1,15 @@
+{
+    "window.title": "Development",
+    "editor.renderWhitespace": "boundary",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/build": true,
+        "**/lib": true,
+    },
+    "prettier.configPath": ".prettierrc.js",
+    "prettier.prettierPath": "./node_modules/prettier",
+    "typescript.tsdk": "node_modules/typescript/lib",
+}

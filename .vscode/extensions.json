@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-vscode.remote-explorer",
+        "eamodio.gitlens",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "darkriszty.markdown-table-prettify",
+        "bradgashler.htmltagwrap",
+        "pkief.material-icon-theme",
+        "zhuangtongfa.material-theme",
+    ]
+}
