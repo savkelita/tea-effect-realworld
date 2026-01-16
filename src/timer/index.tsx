@@ -5,27 +5,28 @@ import * as Platform from 'tea-effect/Platform'
 import * as TeaReact from 'tea-effect/React'
 
 export type Model = {
-  count: number
+  seconds: number
+  running: boolean
 }
 
-export type Msg = { type: 'Increment' } | { type: 'Decrement' } | { type: 'Reset' }
+export type Msg = { type: 'Tick' } | { type: 'Toggle' } | { type: 'Reset' }
 
-// INIT
-export const init: [Model, Cmd.Cmd<Msg>] = [{ count: 0 }, Cmd.none]
+export const init: [Model, Cmd.Cmd<Msg>] = [{ seconds: 0, running: false }, Cmd.none]
 
-// UPDATE
 export const update = (msg: Msg, model: Model): [Model, Cmd.Cmd<Msg>] => {
   switch (msg.type) {
-    case 'Increment':
-      return [{ count: model.count + 1 }, Cmd.none]
-    case 'Decrement':
-      return [{ count: model.count - 1 }, Cmd.none]
+    case 'Tick':
+      return [{ ...model, seconds: model.seconds + 1 }, Cmd.none]
+    case 'Toggle':
+      return [{ ...model, running: !model.running }, Cmd.none]
     case 'Reset':
-      return [{ count: 0 }, Cmd.none]
+      return [{ ...model, seconds: 0 }, Cmd.none]
   }
 }
 
-// VIEW
+export const subscriptions = (model: Model): Sub.Sub<Msg> =>
+  model.running ? Sub.interval(1000, { type: 'Tick' }) : Sub.none
+
 export const view =
   (model: Model): TeaReact.Html<Msg> =>
   (dispatch: Platform.Dispatch<Msg>) =>
@@ -38,11 +39,8 @@ export const view =
           width: 200,
         }}
       >
-        <Text>{model.count}</Text>
-        <Button onClick={() => dispatch({ type: 'Increment' })}>Increment</Button>
-        <Button onClick={() => dispatch({ type: 'Decrement' })}>Decrement</Button>
+        <Text size={800}>{model.seconds}s</Text>
+        <Button onClick={() => dispatch({ type: 'Toggle' })}>{model.running ? 'Stop' : 'Start'}</Button>
         <Button onClick={() => dispatch({ type: 'Reset' })}>Reset</Button>
       </div>
     )
-
-export const subscriptions = (_model: Model): Sub.Sub<Msg> => Sub.none

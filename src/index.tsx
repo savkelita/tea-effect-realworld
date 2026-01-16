@@ -1,24 +1,22 @@
 import { FluentProvider, webLightTheme } from '@fluentui/react-components'
 import { createRoot } from 'react-dom/client'
 import { defaultGlobalStyles } from './common/theme'
-import { React as TeaReact } from 'tea-effect'
+import * as TeaReact from 'tea-effect/React'
 import { Effect } from 'effect'
-import { init, update, view, subscriptions } from './counter'
+import { init, update, view, subscriptions } from './app'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
 
-const Element = ({ element }: { element: TeaReact.ReactElement }) => {
+const Element = ({ dom }: { dom: TeaReact.Dom }) => {
   defaultGlobalStyles()
   return (
     <FluentProvider style={{ height: '100%' }} theme={webLightTheme}>
-      {element}
+      {dom}
     </FluentProvider>
   )
 }
 
 Effect.runPromise(
-  TeaReact.run(TeaReact.program(init, update, view, subscriptions), element =>
-    root.render(<Element element={element} />),
-  ),
+  TeaReact.run(TeaReact.program(init, update, view, subscriptions), dom => root.render(<Element dom={dom} />)),
 )

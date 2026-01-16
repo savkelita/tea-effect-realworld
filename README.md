@@ -1,2 +1,35 @@
 # tea-effect-realworld
-A RealWorld reference app demonstrating tea-effect: Elm Architecture + Effect for type-safe, testable, and scalable frontend applications
+
+Real-world examples demonstrating [tea-effect](https://github.com/savkelita/tea-effect).
+
+## Examples
+
+| Example | Description |
+|---------|-------------|
+| Counter | Basic TEA pattern with Model, Msg, update, view |
+| Users | HTTP requests with Schema validation and error handling |
+| Timer | Subscriptions with `Sub.interval` |
+
+## Installation
+
+```sh
+yarn install
+```
+
+## Development
+
+```sh
+yarn start
+```
+
+Open https://localhost:3000
+
+## Build
+
+```sh
+yarn build
+```
+
+## License
+
+MIT

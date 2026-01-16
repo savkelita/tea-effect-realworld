@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 // Api HOST, PORT, URL
-const apiHost = process.env.APIHOST || 'localhost'
+const apiHost = process.env.APIHOST || 'jsonplaceholder.typicode.com'
 const apiUrl = `https://${apiHost}`
 // const apiPort = process.env.APIPORT || 8080
 // const apiUrl = `https://${apiHost}:${apiPort}`
