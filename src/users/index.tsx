@@ -10,7 +10,7 @@ import {
   MessageBarBody,
 } from '@fluentui/react-components'
 import { MailRegular, ArrowClockwiseRegular } from '@fluentui/react-icons'
-import { Schema } from 'effect'
+import { Schema, Option, pipe } from 'effect'
 import * as Cmd from 'tea-effect/Cmd'
 import * as Http from 'tea-effect/Http'
 import * as Sub from 'tea-effect/Sub'
@@ -30,7 +30,7 @@ const getUsers = Http.get('/users', Http.expectJson(Schema.Array(User)))
 export type Model = {
   users: readonly User[]
   loading: boolean
-  error: Http.HttpError | null
+  error: Option.Option<Http.HttpError>
 }
 
 export type Msg =
@@ -58,16 +58,29 @@ const renderError = (error: Http.HttpError): string => {
   }
 }
 
-export const init: [Model, Cmd.Cmd<Msg>] = [{ users: [], loading: true, error: null }, fetchUsersCmd]
+const renderErrorMessage = (error: Option.Option<Http.HttpError>) =>
+  pipe(
+    error,
+    Option.match({
+      onNone: () => null,
+      onSome: e => (
+        <MessageBar intent="error">
+          <MessageBarBody>{renderError(e)}</MessageBarBody>
+        </MessageBar>
+      ),
+    }),
+  )
+
+export const init: [Model, Cmd.Cmd<Msg>] = [{ users: [], loading: true, error: Option.none() }, fetchUsersCmd]
 
 export const update = (msg: Msg, model: Model): [Model, Cmd.Cmd<Msg>] => {
   switch (msg.type) {
     case 'FetchUsers':
-      return [{ ...model, loading: true, error: null }, fetchUsersCmd]
+      return [{ ...model, loading: true, error: Option.none() }, fetchUsersCmd]
     case 'UsersLoaded':
       return [{ ...model, loading: false, users: msg.users }, Cmd.none]
     case 'UsersFailed':
-      return [{ ...model, loading: false, error: msg.error }, Cmd.none]
+      return [{ ...model, loading: false, error: Option.some(msg.error) }, Cmd.none]
   }
 }
 
@@ -93,11 +106,7 @@ export const view =
           </div>
         )}
 
-        {model.error && (
-          <MessageBar intent="error">
-            <MessageBarBody>{renderError(model.error)}</MessageBarBody>
-          </MessageBar>
-        )}
+        {renderErrorMessage(model.error)}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {model.users.map(user => (
