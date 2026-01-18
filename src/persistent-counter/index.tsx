@@ -146,9 +146,7 @@ export const view =
         ) : (
           <>
             {renderErrorMessage(model.error)}
-            <Text size={500} weight="bold">
-              {model.count}
-            </Text>
+            <Text size={800}>{model.count}</Text>
             <Button onClick={() => dispatch({ type: 'Increment' })}>Increment</Button>
             <Button onClick={() => dispatch({ type: 'Decrement' })}>Decrement</Button>
             <Button onClick={() => dispatch({ type: 'Reset' })}>Reset</Button>

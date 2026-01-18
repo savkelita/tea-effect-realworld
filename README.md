@@ -7,6 +7,8 @@ Real-world examples demonstrating [tea-effect](https://github.com/savkelita/tea-
 | Example | Description |
 |---------|-------------|
 | Counter | Basic TEA pattern with Model, Msg, update, view |
+| PersistentCounter | Counter with localStorage persistence using `LocalStorage` module |
+| Random | Random number generation using `Task.perform` with Effect's Random |
 | Users | HTTP requests with Schema validation and error handling |
 | Timer | Subscriptions with `Sub.interval` |
 

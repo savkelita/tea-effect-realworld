@@ -38,7 +38,7 @@ export const view =
           width: 200,
         }}
       >
-        <Text>{model.count}</Text>
+        <Text size={800}>{model.count}</Text>
         <Button onClick={() => dispatch({ type: 'Increment' })}>Increment</Button>
         <Button onClick={() => dispatch({ type: 'Decrement' })}>Decrement</Button>
         <Button onClick={() => dispatch({ type: 'Reset' })}>Reset</Button>
