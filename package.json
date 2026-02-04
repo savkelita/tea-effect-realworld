@@ -22,10 +22,10 @@
   },
   "dependencies": {
     "@effect/platform": "^0.94.0",
-    "effect": "^3.19.0",
+    "effect": "^3.19.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tea-effect": "^0.4.0"
+    "tea-effect": "0.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",

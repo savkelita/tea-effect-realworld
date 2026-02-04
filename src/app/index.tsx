@@ -9,8 +9,9 @@ import * as PersistentCounter from '../persistent-counter'
 import * as Timer from '../timer'
 import * as Users from '../users'
 import * as Random from '../random'
+import * as NavigationDemo from '../navigation-demo'
 
-type ActiveTab = 'counter' | 'persistent-counter' | 'timer' | 'users' | 'random'
+type ActiveTab = 'counter' | 'persistent-counter' | 'timer' | 'users' | 'random' | 'navigation'
 
 export type Model = {
   activeTab: ActiveTab
@@ -19,6 +20,7 @@ export type Model = {
   timer: Timer.Model
   users: Users.Model
   random: Random.Model
+  navigation: NavigationDemo.Model
 }
 
 export type Msg =
@@ -28,12 +30,14 @@ export type Msg =
   | { type: 'TimerMsg'; msg: Timer.Msg }
   | { type: 'UsersMsg'; msg: Users.Msg }
   | { type: 'RandomMsg'; msg: Random.Msg }
+  | { type: 'NavigationMsg'; msg: NavigationDemo.Msg }
 
 const [counterInit, counterCmd] = Counter.init
 const [persistentCounterInit, persistentCounterCmd] = PersistentCounter.init
 const [timerInit, timerCmd] = Timer.init
 const [usersInit, usersCmd] = Users.init
 const [randomInit, randomCmd] = Random.init
+const [navigationInit, navigationCmd] = NavigationDemo.init
 
 export const init: [Model, Cmd.Cmd<Msg>] = [
   {
@@ -43,6 +47,7 @@ export const init: [Model, Cmd.Cmd<Msg>] = [
     timer: timerInit,
     users: usersInit,
     random: randomInit,
+    navigation: navigationInit,
   },
   Cmd.batch([
     Cmd.map((msg: Counter.Msg): Msg => ({ type: 'CounterMsg', msg }))(counterCmd),
@@ -50,6 +55,7 @@ export const init: [Model, Cmd.Cmd<Msg>] = [
     Cmd.map((msg: Timer.Msg): Msg => ({ type: 'TimerMsg', msg }))(timerCmd),
     Cmd.map((msg: Users.Msg): Msg => ({ type: 'UsersMsg', msg }))(usersCmd),
     Cmd.map((msg: Random.Msg): Msg => ({ type: 'RandomMsg', msg }))(randomCmd),
+    Cmd.map((msg: NavigationDemo.Msg): Msg => ({ type: 'NavigationMsg', msg }))(navigationCmd),
   ]),
 ]
 
@@ -80,6 +86,13 @@ export const update = (msg: Msg, model: Model): [Model, Cmd.Cmd<Msg>] => {
       const [random, cmd] = Random.update(msg.msg, model.random)
       return [{ ...model, random }, Cmd.map((m: Random.Msg): Msg => ({ type: 'RandomMsg', msg: m }))(cmd)]
     }
+    case 'NavigationMsg': {
+      const [navigation, cmd] = NavigationDemo.update(msg.msg, model.navigation)
+      return [
+        { ...model, navigation },
+        Cmd.map((m: NavigationDemo.Msg): Msg => ({ type: 'NavigationMsg', msg: m }))(cmd),
+      ]
+    }
   }
 }
 
@@ -89,6 +102,9 @@ export const subscriptions = (model: Model): Sub.Sub<Msg> =>
       PersistentCounter.subscriptions(model.persistentCounter),
     ),
     Sub.map((msg: Timer.Msg): Msg => ({ type: 'TimerMsg', msg }))(Timer.subscriptions(model.timer)),
+    Sub.map((msg: NavigationDemo.Msg): Msg => ({ type: 'NavigationMsg', msg }))(
+      NavigationDemo.subscriptions(model.navigation),
+    ),
   ])
 
 const renderContent = (model: Model): TeaReact.Html<Msg> => {
@@ -105,6 +121,10 @@ const renderContent = (model: Model): TeaReact.Html<Msg> => {
       return Html.map((msg: Users.Msg): Msg => ({ type: 'UsersMsg', msg }))(Users.view(model.users))
     case 'random':
       return Html.map((msg: Random.Msg): Msg => ({ type: 'RandomMsg', msg }))(Random.view(model.random))
+    case 'navigation':
+      return Html.map((msg: NavigationDemo.Msg): Msg => ({ type: 'NavigationMsg', msg }))(
+        NavigationDemo.view(model.navigation),
+      )
   }
 }
 
@@ -127,6 +147,7 @@ export const view =
                 <Tab value="persistent-counter">Persistent</Tab>
                 <Tab value="timer">Timer</Tab>
                 <Tab value="users">Users</Tab>
+                <Tab value="navigation">Navigation</Tab>
               </TabList>
             }
           />

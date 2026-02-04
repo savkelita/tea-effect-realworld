@@ -11,6 +11,7 @@ Real-world examples demonstrating [tea-effect](https://github.com/savkelita/tea-
 | Random | Random number generation using `Task.perform` with Effect's Random |
 | Users | HTTP requests with Schema validation and error handling |
 | Timer | Subscriptions with `Sub.interval` |
+| Navigation | SPA routing with `Navigation` module (linkClicks, urlChanges, pushUrl) |
 
 ## Installation
 

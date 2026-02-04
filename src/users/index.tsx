@@ -25,7 +25,7 @@ const User = Schema.Struct({
 
 type User = Schema.Schema.Type<typeof User>
 
-const getUsers = Http.get('/users', Http.expectJson(Schema.Array(User)))
+const getUsers = Http.get('/api/users', Http.expectJson(Schema.Array(User)))
 
 export type Model = {
   users: readonly User[]
