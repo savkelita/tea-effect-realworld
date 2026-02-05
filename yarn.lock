@@ -6919,10 +6919,10 @@ tapable@^2.0.0, tapable@^2.2.0, tapable@^2.3.0:
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.3.0.tgz"
   integrity sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==
 
-tea-effect@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/tea-effect/-/tea-effect-0.5.1.tgz#c07468eac3faf41e2fd41a7c4494ef541cbaeaf4"
-  integrity sha512-4J5ldwTtjPs4mM3/l6RI2u+aY2Oc1FfP+9ig7H3FW05J3mg5rFDb21cnGkrFqPi0nnBGsiQSX6M8P1x/AMYGlw==
+tea-effect@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/tea-effect/-/tea-effect-0.6.0.tgz#becfebea74e2b52a9e5ee27a3647e42566af7f30"
+  integrity sha512-iIwPgE3zKuJlFhRnDqk4cF2SY1DFJ/EIMKdMjyfCG923Nrx6D5TTIVj1NlzQoptPXcMEuAe7YwbudsTas5SwHA==
 
 terser-webpack-plugin@^5.3.16:
   version "5.3.16"
